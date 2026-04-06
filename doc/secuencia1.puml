@@ -1,0 +1,12 @@
+@startuml
+
+Participant "getInfo.py" as gI
+Participant "API" as A
+Participant "redondear.c" as r
+
+gI -> A: GET
+A -> gI: result
+gI -> r: Redondear(float)
+r -> gI: int
+
+@enduml

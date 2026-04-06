@@ -1,4 +1,5 @@
 import requests
+import ctypes
 
 def obtener_ultimo_gini():
     """
@@ -23,6 +24,20 @@ def obtener_ultimo_gini():
         print(f"Error en API: {e}")
         return 0.0
 
+libredondear = ctypes.CDLL('./libredondear2.so')
+libredondear.redondear.argtypes = (ctypes.c_float,)
+libredondear.redondear.restype = ctypes.c_int
+
+
+def redondear(valor):
+    return libredondear.redondear(valor) 
+
+
+resultado = redondear(obtener_ultimo_gini())
+
+
 if __name__ == "__main__":
     # Esto te sirve para probarlo tú solo
-    print(f"Resultado para C: {obtener_ultimo_gini()}")
+    print(f"Obtenido desde API: {obtener_ultimo_gini()}")
+
+    print("Devuelto desde la funcion en C:" , resultado)
