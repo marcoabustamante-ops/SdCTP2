@@ -26,6 +26,6 @@ cd /src
 
 # Documentación Detallada
 
-Para entender cómo interactúan las capas de Python, C y la futura implementación en Assembler, consultá el siguiente documento:
+Para entender cómo interactúan las capas de Python, C y Assembler, ver el siguiente documento:
 
 * [Análisis de Integración de Capas](./integracion_capas.md)
