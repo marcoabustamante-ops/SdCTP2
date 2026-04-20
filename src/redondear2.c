@@ -1,5 +1,5 @@
+extern int operacion_asm(float valor);
+
 int redondear(float valor) {
-    int n = (int)valor;
-    n = n + 1;
-    return n; 
+    return operacion_asm(valor); 
 }

@@ -1,0 +1,62 @@
+Punto de interrupción 1 at 0x1145: file main_debug.c, line 6.
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Depuración de hilo usando libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, main () at main_debug.c:6
+6	    float gini_prueba = 0.45f;
+
+=======================================================
+[1] ESTADO DEL STACK ANTES DE LLAMAR A ASM (EN MAIN)
+=======================================================
+0x7fffffffdd10:	0x00007fffffffde00	0x00007fffffffde48
+0x7fffffffdd20:	0x00007fffffffddc0	0x00007ffff7c2a1ca
+0x7fffffffdd30:	0x00007fffffffdd70	0x00007fffffffde48
+0x7fffffffdd40:	0x0000000155554040	0x0000555555555139
+Punto de interrupción 2 at 0x555555555181: file operacion_asm.s, line 5.
+
+Breakpoint 2, operacion_asm () at operacion_asm.s:5
+5	    pushq   %rbp
+
+=======================================================
+[2] ESTADO DEL STACK AL ENTRAR A LA FUNCION ASM
+=======================================================
+0x7fffffffdd08:	0x000055555555515e	0x00007fffffffde00
+0x7fffffffdd18:	0x00007fff3ee66666	0x00007fffffffddc0
+0x7fffffffdd28:	0x00007ffff7c2a1ca	0x00007fffffffdd70
+0x7fffffffdd38:	0x00007fffffffde48	0x0000000155554040
+
+--- Ejecutando el prologo (push rbp, mov rsp, rbp) ---
+6	    movq    %rsp, %rbp
+8	    cvttss2si %xmm0, %eax
+
+=======================================================
+[3] ESTADO DEL STACK DURANTE LA FUNCION (PROLOGO COMPLETADO)
+=======================================================
+0x7fffffffdd00:	0x00007fffffffdd20	0x000055555555515e
+0x7fffffffdd10:	0x00007fffffffde00	0x00007fff3ee66666
+0x7fffffffdd20:	0x00007fffffffddc0	0x00007ffff7c2a1ca
+0x7fffffffdd30:	0x00007fffffffdd70	0x00007fffffffde48
+
+--- Valor de retorno en RAX antes de salir ---
+0x000055555555515e in main () at main_debug.c:7
+7	    int resultado = operacion_asm(gini_prueba);
+rax            0x1                 1
+
+=======================================================
+[4] ESTADO DEL STACK DESPUES DE LA FUNCION (DE VUELTA EN MAIN)
+=======================================================
+0x7fffffffdd10:	0x00007fffffffde00	0x00007fff3ee66666
+0x7fffffffdd20:	0x00007fffffffddc0	0x00007ffff7c2a1ca
+0x7fffffffdd30:	0x00007fffffffdd70	0x00007fffffffde48
+0x7fffffffdd40:	0x0000000155554040	0x0000555555555139
+Una sesión de depuración está activa.
+
+	Inferior 1 [process 3222] will be killed.
+
+¿Salir de cualquier modo? (y or n) [answered Y; input not from terminal]
